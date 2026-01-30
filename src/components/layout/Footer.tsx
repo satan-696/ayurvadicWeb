@@ -1,6 +1,18 @@
-import { Box, Container, Typography, Grid, Link } from '@mui/material';
+import { Box, Container, Typography, Grid, Link, Snackbar, Alert } from '@mui/material';
+import { useState } from 'react';
 
 const Footer = () => {
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+
+    const handleLinkClick = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setOpenSnackbar(true);
+    };
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
     return (
         <Box sx={{ bgcolor: 'primary.main', color: 'white', py: 6, mt: 'auto' }}>
             <Container maxWidth="lg">
@@ -17,9 +29,9 @@ const Footer = () => {
                         <Typography variant="h6" gutterBottom>
                             Quick Links
                         </Typography>
-                        <Link href="/" color="inherit" display="block" sx={{ mb: 1 }}>Home</Link>
-                        <Link href="/about" color="inherit" display="block" sx={{ mb: 1 }}>About Us</Link>
-                        <Link href="/products" color="inherit" display="block" sx={{ mb: 1 }}>Products</Link>
+                        <Link href="#" onClick={handleLinkClick} color="inherit" display="block" sx={{ mb: 1, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>Home</Link>
+                        <Link href="#" onClick={handleLinkClick} color="inherit" display="block" sx={{ mb: 1, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>About Us</Link>
+                        <Link href="#" onClick={handleLinkClick} color="inherit" display="block" sx={{ mb: 1, textDecoration: 'none', '&:hover': { textDecoration: 'underline' } }}>Products</Link>
                     </Grid>
                     <Grid item xs={12} md={4}>
                         <Typography variant="h6" gutterBottom>
@@ -38,6 +50,11 @@ const Footer = () => {
                     </Typography>
                 </Box>
             </Container>
+            <Snackbar open={openSnackbar} autoHideDuration={3000} onClose={handleCloseSnackbar} anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}>
+                <Alert onClose={handleCloseSnackbar} severity="info" sx={{ width: '100%' }}>
+                    🚧 Coming soon – Backend integration under development
+                </Alert>
+            </Snackbar>
         </Box>
     );
 };
